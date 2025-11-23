@@ -67,6 +67,7 @@ Key points:
 - It exposes:
   - `@Output() imageCroppedEvent: EventEmitter<string>` – emits the final image as a base64 data URL.
   - `@Output() cancelEvent: EventEmitter<void>` – notifies when the user cancels.
+  - `@Output() error: EventEmitter<string | Error>` – emits when an error occurs (compression failure, image load failure, etc.).
   - Several `@Input()` properties for customization (aspect ratio, dialog title, button labels, cropper dimensions, etc.).
   - Optional compression-related inputs:
     - `compressionMaxWidth: number` (default: `800`) – maximum width of the compressed image in pixels.
@@ -85,6 +86,17 @@ For example, to use a smaller avatar-friendly preset:
   [compressionMaxWidth]="512"
   [compressionQuality]="0.9">
 </app-image-cropper-dialog>
+```
+
+You can also subscribe to the `error` output to log or surface errors in your own UI (for example with a snackbar):
+
+```ts
+const componentInstance = dialogRef.componentInstance;
+
+componentInstance.error.subscribe(err => {
+  console.error('Image cropper error', err);
+  // Optionally show a user-facing message (snackbar, toast, etc.)
+});
 ```
 
 The demo `AppComponent` simply opens this dialog and displays the resulting image.

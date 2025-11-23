@@ -39,7 +39,6 @@ export class AppComponent {
     });
 
     dialogRef.componentInstance.imageCroppedEvent.subscribe((base64Image: string) => {
-      console.log('Image recadrée reçue');
       this.rawBase64Image = base64Image;
       this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(base64Image);
       this.updateCroppedImageInfo(base64Image);
@@ -47,7 +46,6 @@ export class AppComponent {
     });
 
     dialogRef.componentInstance.cancelEvent.subscribe(() => {
-      console.log('Recadrage annulé');
       dialogRef.close();
     });
   }

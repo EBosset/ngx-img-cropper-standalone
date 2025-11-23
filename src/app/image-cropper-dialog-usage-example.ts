@@ -4,10 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ImageCropperDialogComponent } from './components/image-cropper-dialog/image-cropper-dialog.component';
-
-/**
- * Exemple d'utilisation du composant ImageCropperDialog dans une application
- */
 @Component({
   selector: 'app-example',
   standalone: true,
@@ -19,14 +15,12 @@ import { ImageCropperDialogComponent } from './components/image-cropper-dialog/i
   template: `
     <div class="container">
       <h1>Exemple d'utilisation du recadreur d'image</h1>
-      
-      <!-- Bouton pour ouvrir la popup de recadrage -->
+
       <button mat-raised-button color="primary" (click)="openImageCropperDialog()">
         <mat-icon>add_photo_alternate</mat-icon>
         Ajouter une image
       </button>
-      
-      <!-- Affichage de l'image recadrée si disponible -->
+
       <div *ngIf="croppedImage" class="cropped-image-container">
         <h2>Image recadrée :</h2>
         <img [src]="croppedImage" alt="Image recadrée" class="cropped-image">
@@ -82,20 +76,17 @@ export class ExampleComponent {
     const componentInstance = dialogRef.componentInstance;
 
     componentInstance.imageCroppedEvent.subscribe((base64Image: string) => {
-      console.log('Image recadru00e9e reu00e7ue');
       this.croppedImage = base64Image;
       this.updateCroppedImageInfo(base64Image);
       dialogRef.close();
     });
 
     componentInstance.cancelEvent.subscribe(() => {
-      console.log('Recadrage annulu00e9');
       dialogRef.close();
     });
   }
 
   private updateCroppedImageInfo(base64Image: string): void {
-    // Estimation de la taille en Ko à partir de la longueur base64
     const base64Data = base64Image.includes('base64,')
       ? base64Image.split('base64,')[1]
       : base64Image;
@@ -104,7 +95,6 @@ export class ExampleComponent {
     const bytes = Math.ceil((length * 3) / 4);
     this.croppedSizeKb = Math.round(bytes / 1024);
 
-    // Récupération des dimensions via un objet Image
     const img = new Image();
     img.onload = () => {
       this.croppedWidth = img.width;
