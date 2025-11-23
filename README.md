@@ -68,6 +68,7 @@ Key points:
   - `@Output() imageCroppedEvent: EventEmitter<string>` – emits the final image as a base64 data URL.
   - `@Output() cancelEvent: EventEmitter<void>` – notifies when the user cancels.
   - `@Output() error: EventEmitter<string | Error>` – emits when an error occurs (compression failure, image load failure, etc.).
+  - `@Output() imageCroppedInfoEvent: EventEmitter<{ base64: string; width: number; height: number; sizeKb: number }>` – emits the compressed image together with basic metadata (optional, for advanced usage).
   - Several `@Input()` properties for customization (aspect ratio, dialog title, button labels, cropper dimensions, etc.).
   - Optional compression-related inputs:
     - `compressionMaxWidth: number` (default: `800`) – maximum width of the compressed image in pixels.
@@ -88,7 +89,43 @@ For example, to use a smaller avatar-friendly preset:
 </app-image-cropper-dialog>
 ```
 
-You can also subscribe to the `error` output to log or surface errors in your own UI (for example with a snackbar):
+### 2.1. Integration checklist (Angular)
+
+To integrate the dialog component into your own Angular app:
+
+1. **Install dependencies**:
+
+   - Install `ngx-image-cropper`.
+   - Make sure Angular Material is configured and `MatDialogModule` is imported.
+
+2. **Copy the component and service**:
+
+   - Copy `ImageCropperDialogComponent` and `ImageCompressionService` into your project.
+
+3. **Open the dialog with MatDialog**:
+
+   - Use `this.dialog.open(ImageCropperDialogComponent, { ... })` from your component.
+
+4. **Subscribe to outputs**:
+
+   - `imageCroppedEvent` (simple case – final base64 image).
+   - `cancelEvent` (user closes or cancels the dialog).
+   - Optionally `error` (for logging or toast/snackbar).
+   - Optionally `imageCroppedInfoEvent` (for width/height/size metadata).
+
+5. **Close the dialog from handlers**:
+
+   - Close the `MatDialogRef` in your `imageCroppedEvent` and `cancelEvent` subscriptions.
+
+### 2.2. Error handling
+
+When something goes wrong (compression failure, image load failure), the component:
+
+- Logs an error to the console.
+- Displays a user-friendly error message inside the dialog.
+- Emits the `error` output so that the parent component can react.
+
+Example:
 
 ```ts
 const componentInstance = dialogRef.componentInstance;
@@ -98,6 +135,29 @@ componentInstance.error.subscribe(err => {
   // Optionally show a user-facing message (snackbar, toast, etc.)
 });
 ```
+
+### 2.3. Advanced usage (compression & metadata)
+
+The dialog exposes a couple of knobs for advanced scenarios:
+
+- **Compression config** via inputs:
+
+  ```html
+  <app-image-cropper-dialog
+    [compressionMaxWidth]="512"
+    [compressionQuality]="0.9">
+  </app-image-cropper-dialog>
+  ```
+
+- **Metadata about the compressed image** via `imageCroppedInfoEvent`:
+
+  ```ts
+  componentInstance.imageCroppedInfoEvent
+    .subscribe(({ base64, width, height, sizeKb }) => {
+      console.log('Cropped image info', { width, height, sizeKb });
+      // e.g. display the dimensions and estimated size in your UI
+    });
+  ```
 
 The demo `AppComponent` simply opens this dialog and displays the resulting image.
 
