@@ -1,4 +1,4 @@
-import { Component, EventEmitter, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Output, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Output, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 // Importations individuelles des composants Material
@@ -18,6 +18,7 @@ import { ImageCompressionService } from '../../services/image-compression.servic
   selector: 'app-image-cropper-dialog',
   templateUrl: './image-cropper-dialog.component.html',
   styleUrls: ['./image-cropper-dialog.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     CommonModule,
@@ -43,6 +44,9 @@ export class ImageCropperDialogComponent {
   @Input() confirmButtonText: string = "Confirmer";
   @Input() cancelButtonText: string = "Annuler";
   @Input() overlayColor: string = "rgba(0,0,0,0.7)";
+  // Paramètres optionnels de compression
+  @Input() compressionMaxWidth: number = 800;
+  @Input() compressionQuality: number = 0.85;
   
   imageChangedEvent: any = null;
   croppedImage: SafeUrl = '';
@@ -84,7 +88,11 @@ export class ImageCropperDialogComponent {
         const base64 = e.target.result;
 
         try {
-          const compressedImage = await this.imageCompression.compressImage(base64, 800, 0.85);
+          const compressedImage = await this.imageCompression.compressImage(
+            base64,
+            this.compressionMaxWidth,
+            this.compressionQuality,
+          );
 
           this.rawBase64Image = compressedImage.base64;
           this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(compressedImage.base64);
@@ -93,6 +101,9 @@ export class ImageCropperDialogComponent {
             width: compressedImage.width,
             height: compressedImage.height
           });
+
+          // Forcer la détection de changements avec OnPush
+          this.cdr.markForCheck();
         } catch (error) {
           console.error('Erreur lors de la compression:', error);
         }

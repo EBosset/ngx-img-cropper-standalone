@@ -68,12 +68,24 @@ Key points:
   - `@Output() imageCroppedEvent: EventEmitter<string>` – emits the final image as a base64 data URL.
   - `@Output() cancelEvent: EventEmitter<void>` – notifies when the user cancels.
   - Several `@Input()` properties for customization (aspect ratio, dialog title, button labels, cropper dimensions, etc.).
+  - Optional compression-related inputs:
+    - `compressionMaxWidth: number` (default: `800`) – maximum width of the compressed image in pixels.
+    - `compressionQuality: number` (default: `0.85`) – JPEG quality factor between 0 and 1.
 
 Image **compression and resizing** is handled by a small injectable service:
 
 - `src/app/services/image-compression.service.ts` (`ImageCompressionService`)
 
 This keeps the dialog focused on UI responsibilities and makes the compression logic easy to reuse or swap in more advanced setups (e.g. different max width / quality, alternative algorithms).
+
+For example, to use a smaller avatar-friendly preset:
+
+```html
+<app-image-cropper-dialog
+  [compressionMaxWidth]="512"
+  [compressionQuality]="0.9">
+</app-image-cropper-dialog>
+```
 
 The demo `AppComponent` simply opens this dialog and displays the resulting image.
 
