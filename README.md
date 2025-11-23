@@ -69,6 +69,12 @@ Key points:
   - `@Output() cancelEvent: EventEmitter<void>` – notifies when the user cancels.
   - Several `@Input()` properties for customization (aspect ratio, dialog title, button labels, cropper dimensions, etc.).
 
+Image **compression and resizing** is handled by a small injectable service:
+
+- `src/app/services/image-compression.service.ts` (`ImageCompressionService`)
+
+This keeps the dialog focused on UI responsibilities and makes the compression logic easy to reuse or swap in more advanced setups (e.g. different max width / quality, alternative algorithms).
+
 The demo `AppComponent` simply opens this dialog and displays the resulting image.
 
 ---
