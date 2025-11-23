@@ -1,0 +1,372 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Roboto'; }
+
+:root {
+  --primary: #9AA32F;
+  --primary-light: #C9D590;
+  --accent: #CDEB47;
+  --text-dark: #30250A;
+  --background-light: #E9EED4;
+  --background-field: #E9EED4;
+  --surface: #FFFFFF;
+  --editor-bg: #444444;
+  --editor-text: #FFFFFF;
+  --cropper-overlay-color: rgba(0, 0, 0, 0.7); /* Couleur de l'overlay pour les zones non conservées */
+  --cropper-outline-color: var(--accent);      /* Couleur de la bordure du cropper */
+  --cropper-border: 2px solid var(--accent);   /* Style de la bordure du cropper */
+ 
+}
+
+/* Styles globaux */
+body {
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+/* Surcharge des couleurs pour les boutons FAB avec color="accent" */
+.mat-mdc-fab.mat-accent {
+  --mdc-fab-container-color: var(--primary) !important;
+  --mat-mdc-fab-color: white !important;
+}
+
+.mat-mdc-fab.mat-accent:hover {
+  --mdc-fab-container-color: var(--accent) !important;
+}
+
+/* Style personnalisé pour le cropper */
+.cropper-container {
+  background-color: var(--surface);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.controls-container {
+  margin-bottom: 15px;
+}
+
+/* Style des boutons */
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  min-width: 120px;
+  min-height: 44px;
+  border-radius: 22px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent);
+  color: var(--text-dark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--primary-light);
+  color: var(--text-dark);
+  border: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  min-width: 120px;
+  min-height: 44px;
+  border-radius: 22px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background-color: var(--accent);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Supprimer le contour noir par défaut sur le focus des boutons personnalisés */
+.btn-primary:focus,
+.btn-primary:focus-visible,
+.btn-secondary:focus,
+.btn-secondary:focus-visible {
+  outline: none;
+}
+
+.btn-reset {
+  min-width: 120px;
+  font-size: 0.95rem;
+}
+
+/* Style pour l'input de fichier */
+input[type="file"] {
+  background-color: var(--background-field);
+  border: 2px dashed var(--primary);
+  border-radius: 8px;
+  padding: 15px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input[type="file"]:hover {
+  border-color: var(--accent);
+  background-color: var(--primary-light);
+}
+
+/* Style pour les titres */
+h1, h2, h3 {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Style pour l'image recadrée */
+.cropped-image-container {
+  background-color: var(--surface);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cropped-image-container img {
+  border: 1px solid var(--primary-light);
+  border-radius: 4px;
+}
+
+/* Style pour les icônes de rotation */
+.rotate-icon {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1;
+}
+
+/* Style pour le wrapper du cropper */
+.cropper-wrapper {
+  background-color: transparent !important;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Styles pour le cropper */
+.cropper-highlight {
+  border: 2px solid var(--editor-highlight) !important;
+  border-radius: 0 !important;
+}
+
+.cropper-outer-highlight {
+  background-color: transparent !important;
+}
+
+/* Ajustements pour le composant image-cropper */
+image-cropper {
+  --cropper-outline-color: var(--editor-highlight);
+  --cropper-overlay-color: transparent !important;
+  max-height: 500px !important;
+  display: block;
+}
+
+/* Style pour les points de redimensionnement du cropper */
+.ngx-ic-square {
+  background-color: var(--editor-highlight) !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 0 !important;
+}
+
+/* Lignes de guide dans le cropper */
+.ngx-ic-croppers-rule-of-thirds-1::before,
+.ngx-ic-croppers-rule-of-thirds-2::before,
+.ngx-ic-croppers-rule-of-thirds-1::after,
+.ngx-ic-croppers-rule-of-thirds-2::after {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Correction pour l'overlay */
+.ngx-ic-overlay {
+  background: transparent !important;
+}
+
+/* Styles pour assombrir la partie non sélectionnée */
+.ngx-ic-overlay-shade {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Styles pour le Photo Editor */
+.photo-editor-container {
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--editor-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: var(--editor-text);
+}
+
+.photo-editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: var(--editor-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.photo-editor-header span {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.photo-editor-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.editor-btn {
+  background: none;
+  border: none;
+  color: var(--editor-text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.editor-btn:hover {
+  opacity: 1;
+}
+
+.photo-editor-main {
+  position: relative;
+  background-color: #000;
+  min-height: 400px;
+}
+
+.photo-editor-footer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.editor-tool-btn {
+  background: none;
+  border: none;
+  color: var(--editor-text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.editor-tool-btn:hover {
+  opacity: 1;
+}
+
+/* Style pour le slider de redimensionnement */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--background-field);
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: var(--accent);
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  transition: background 0.2s;
+  border: none;
+}
+
+.slider::-moz-range-thumb:hover {
+  background: var(--accent);
+}
+
+/* Styles pour le sélecteur de fichier Material */
+.file-input-container {
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.file-name {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+/* Surcharge pour les boutons Material */
+.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: var(--primary);
+  --mdc-protected-button-label-text-color: white;
+}
+
+.mat-mdc-raised-button.mat-primary:hover {
+  --mdc-protected-button-container-color: var(--accent);
+}
+
+/* Styles pour le dialog de recadrage d'image */
+.image-cropper-dialog .mat-mdc-dialog-container {
+  padding: 0 !important;
+}
+
+.image-cropper-dialog .mat-mdc-dialog-surface {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Style pour le bouton de démo */
+.demo-button {
+  padding: 10px 20px !important;
+  font-size: 16px !important;
+}
+
+/* Surcharge pour les boutons Material dans le dialog */
+.mat-mdc-dialog-actions .mat-mdc-button.mat-primary {
+  color: var(--primary);
+}
+
+.mat-mdc-dialog-actions .mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: var(--primary);
+  --mdc-protected-button-label-text-color: white;
+}

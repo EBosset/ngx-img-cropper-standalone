@@ -1,0 +1,119 @@
+<div class="dialog-content">
+    <h2 class="dialog-title">{{ dialogTitle }}</h2>
+
+    <!-- Section d'upload - visible uniquement quand aucune image n'est sélectionnée -->
+    <div class="upload-section" *ngIf="!imageChangedEvent">
+        <!-- Input file caché -->
+        <input
+                type="file"
+                id="fileInput"
+                (change)="fileChangeEvent($event)"
+                accept="image/*"
+                style="display: none;"
+        >
+
+        <!-- Bouton Material UI pour sélectionner un fichier -->
+        <div class="text-center mb-4">
+            <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="triggerFileInput()"
+            >
+                <mat-icon>cloud_upload</mat-icon>
+                Choisir un fichier
+            </button>
+            <span class="file-name ml-3" *ngIf="fileName">{{ fileName }}</span>
+        </div>
+    </div>
+
+    <!-- Section de recadrage - visible uniquement quand une image est sélectionnée -->
+    <div *ngIf="imageChangedEvent" class="cropper-section">
+        <!-- Contrôles de zoom et rotation -->
+        <div class="controls-container">
+            <!-- Bouton de réinitialisation -->
+            <button (click)="resetImage()" class="btn-secondary btn-reset">
+                <span>Réinitialiser</span>
+            </button>
+
+            <!-- Séparateur -->
+            <span class="mx-2"></span>
+
+            <!-- Contrôles de rotation -->
+            <button (click)="rotateLeft()" class="btn-secondary rounded-l">
+                <span class="rotate-icon">&#8634;</span>
+            </button>
+            <button (click)="rotateRight()" class="btn-secondary rounded-r">
+                <span class="rotate-icon">&#8635;</span>
+            </button>
+        </div>
+
+        <!-- Contrôles de redimensionnement d'image -->
+        <div class="resize-controls">
+            <div class="slider-container">
+                <label class="mr-2 font-medium">Taille de l'image:</label>
+                <input
+                        type="range"
+                        [min]="0.1"
+                        [max]="2"
+                        [step]="0.1"
+                        [(ngModel)]="imageScale"
+                        (input)="updateImageScale()"
+                        class="slider"
+                >
+                <span class="ml-2">{{ (imageScale * 100).toFixed(0) }}%</span>
+            </div>
+        </div>
+
+        <!-- Composant de recadrage d'image simplifié -->
+        <div class="cropper-wrapper">
+            <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [canvasWidth]="500"
+                    [canvasHeight]="300"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="aspectRatio"
+                    [containWithinAspectRatio]="false"
+                    [cropperMinWidth]="cropperWidth"
+                    [cropperMinHeight]="cropperHeight"
+                    [cropperStaticWidth]="cropperWidth"
+                    [cropperStaticHeight]="cropperHeight"
+                    [allowMoveImage]="true"
+                    [transform]="transform"
+                    [canvasRotation]="canvasRotation"
+                    [cropperClass]="'cropper-highlight'"
+                    [roundCropper]="false"
+                    [hideResizeSquares]="true"
+                    [cropperOuterClass]="'cropper-outer-highlight'"
+                    [backgroundColor]="'transparent'"
+                    [onlyScaleDown]="false"
+                    [alignImage]="'center'"
+                    [dimmerColors]="{backgroundColor: 'rgba(0, 0, 0, 0.7)', borderColor: 'var(--accent)'}"
+                    [imageQuality]="100"
+                    [format]="'png'"
+                    [style.background]="'transparent'"
+                    [style.backgroundColor]="'transparent'"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()"
+                    (cropperReady)="cropperReady()"
+                    (loadImageFailed)="loadImageFailed()">
+            </image-cropper>
+        </div>
+
+        <!-- Bouton pour changer d'image -->
+        <button class="btn-secondary" (click)="imageChangedEvent = null">
+            Changer d'image
+        </button>
+    </div>
+
+    <!-- Boutons d'action de la popup -->
+    <div class="dialog-actions">
+        <button class="btn-secondary" (click)="closeDialog()">{{ cancelButtonText }}</button>
+        <button
+                class="btn-primary"
+                (click)="confirmCrop()"
+                [disabled]="!rawBase64Image"
+        >
+            {{ confirmButtonText }}
+        </button>
+    </div>
+</div>

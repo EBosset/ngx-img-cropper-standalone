@@ -1,0 +1,27 @@
+<div class="container mx-auto p-6 ">
+  <h1 class="text-3xl font-bold mb-6 text-center">Image Cropper Demo</h1>
+
+  <!-- Bouton pour ouvrir la popup de recadrage d'image -->
+  <div class="flex justify-center mb-8">
+    <button 
+      mat-raised-button 
+      color="primary" 
+      (click)="openImageCropperDialog()"
+      class="demo-button"
+    >
+      <mat-icon>add_photo_alternate</mat-icon>
+      Ajouter une image
+    </button>
+  </div>
+
+  <!-- Affichage de l'image recadrée si disponible -->
+  <div *ngIf="croppedImage" class="flex flex-col items-center mt-6">
+    <h2 class="text-xl font-semibold mb-4">Image recadrée :</h2>
+    <img [src]="croppedImage" alt="Image recadrée" class="demo-cropped-image">
+
+    <div *ngIf="croppedWidth && croppedHeight && croppedSizeKb !== null" class="mt-3 text-sm text-gray-800 text-center">
+      <p>Dimensions : {{ croppedWidth }} × {{ croppedHeight }} px</p>
+      <p>Taille estimée : {{ croppedSizeKb }} Ko</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+/* Styles pour le composant dialog de recadrage d'image */
+
+/* Conteneur principal du dialog */
+.dialog-content {
+  max-width: 550px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Titre du dialog */
+.dialog-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+  text-align: center;
+}
+
+/* Section d'upload */
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+/* Section du cropper */
+.cropper-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Conteneur des contrôles de zoom et rotation */
+.controls-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  gap: 4px;
+}
+
+/* Contrôles de redimensionnement */
+.resize-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Wrapper du cropper */
+.cropper-wrapper {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  margin-bottom: 15px;
+  background-color: transparent;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Boutons d'action du dialog */
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.rounded-l {
+  border-radius: 4px 0 0 4px;
+}
+
+.rounded-r {
+  border-radius: 0 4px 4px 0;
+}
+
+
+/* Styles personnalisés pour l'overlay du cropper */
+
+:host ::ng-deep .ngx-ic-cropper {
+  outline: 2px solid var(--accent) !important;}
+
+
+:host ::ng-deep .cropper-crop-box {
+  border: none !important;
+}
+
+:host ::ng-deep .cropper-canvas {
+  opacity: 1 !important;
+}
+
+:host ::ng-deep .cropper-view-box {
+  outline: none !important;
+  outline-color: transparent !important;
+}
+
+:host ::ng-deep .cropper-face {
+  background-color: transparent !important;
+}
+
+:host ::ng-deep .cropper-modal {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  opacity: 1 !important;
+}
