@@ -4,11 +4,7 @@ Demo Angular app showcasing a **standalone image cropper dialog** built on top o
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
 
-<p align="center">
-  <video src="src/assets/angular-cropper-demo.mp4" controls autoplay loop muted width="800">
-    Your browser does not support the video tag.
-  </video>
-</p>
+![Image cropper demo](src/assets/angular-cropper-demo.gif)
 
 ---
 
