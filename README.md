@@ -314,55 +314,17 @@ You can adapt this pattern to any backend technology (Java, .NET, PHP, Python, e
 
 ---
 
-## 4. Code scaffolding
+## 4. Angular CLI commands
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+This repository is a standard Angular CLI project. For generic commands such as generating components, building the app, or running tests, please refer to the official Angular CLI documentation:
 
-```bash
-ng generate component component-name
-```
+- [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## 5. Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## 6. Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## 7. Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## 8. Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The focus of this README is on the reusable image cropper dialog and how to integrate it into your own application.
 
 ---
 
-## 9. Customizing colors
+## 5. Customizing colors
 
 The demo and the image cropper dialog use a small set of CSS variables defined in `src/styles.css`:
 
@@ -382,7 +344,7 @@ The demo and the image cropper dialog use a small set of CSS variables defined i
 
 Most button and cropper colors are derived from these variables.
 
-### 9.1. Changing the theme colors
+### 5.1. Changing the theme colors
 
 To change the global theme (for example from green to blue), update the variables above in your own `styles.css`:
 
@@ -399,7 +361,7 @@ To change the global theme (for example from green to blue), update the variable
 
 All elements using `.btn-primary`, `.btn-secondary`, `.slider`, and the cropper overlay will automatically use the new colors.
 
-### 9.2. Overriding button styles
+### 5.2. Overriding button styles
 
 If you prefer, you can override the button classes directly (still in `styles.css`):
 
@@ -415,7 +377,7 @@ If you prefer, you can override the button classes directly (still in `styles.cs
 }
 ```
 
-### 9.3. Angular Material buttons
+### 5.3. Angular Material buttons
 
 The demo also customizes Angular Material buttons using the same variables:
 
