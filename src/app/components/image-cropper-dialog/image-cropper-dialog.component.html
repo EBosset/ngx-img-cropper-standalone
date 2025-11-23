@@ -1,5 +1,9 @@
-<div class="dialog-content">
-    <h2 class="dialog-title">{{ dialogTitle }}</h2>
+<div
+        class="dialog-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="image-cropper-dialog-title">
+    <h2 class="dialog-title" id="image-cropper-dialog-title">{{ dialogTitle }}</h2>
 
     <!-- Section d'upload - visible uniquement quand aucune image n'est sélectionnée -->
     <div class="upload-section" *ngIf="!imageChangedEvent">
@@ -7,6 +11,7 @@
         <input
                 type="file"
                 id="fileInput"
+                #fileInput
                 (change)="fileChangeEvent($event)"
                 accept="image/*"
                 style="display: none;"
@@ -39,10 +44,10 @@
             <span class="mx-2"></span>
 
             <!-- Contrôles de rotation -->
-            <button (click)="rotateLeft()" class="btn-secondary rounded-l">
+            <button (click)="rotateLeft()" class="btn-secondary rounded-l" aria-label="Faire pivoter l'image vers la gauche">
                 <span class="rotate-icon">&#8634;</span>
             </button>
-            <button (click)="rotateRight()" class="btn-secondary rounded-r">
+            <button (click)="rotateRight()" class="btn-secondary rounded-r" aria-label="Faire pivoter l'image vers la droite">
                 <span class="rotate-icon">&#8635;</span>
             </button>
         </div>
@@ -50,8 +55,9 @@
         <!-- Contrôles de redimensionnement d'image -->
         <div class="resize-controls">
             <div class="slider-container">
-                <label class="mr-2 font-medium">Taille de l'image:</label>
+                <label for="image-size-slider" class="mr-2 font-medium">Taille de l'image:</label>
                 <input
+                        id="image-size-slider"
                         type="range"
                         [min]="0.1"
                         [max]="2"
@@ -103,6 +109,11 @@
         <button class="btn-secondary" (click)="imageChangedEvent = null">
             Changer d'image
         </button>
+    </div>
+
+    <!-- Message d'erreur utilisateur -->
+    <div *ngIf="errorMessage" class="dialog-error">
+        {{ errorMessage }}
     </div>
 
     <!-- Boutons d'action de la popup -->

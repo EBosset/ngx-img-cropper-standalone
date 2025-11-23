@@ -7,7 +7,6 @@ export interface CompressedImage {
 }
 
 // Petit service injectable qui encapsule le redimensionnement et la compression JPEG
-// afin que le composant de dialogue reste centré sur l'interface et que la logique soit réutilisable
 @Injectable({ providedIn: 'root' })
 export class ImageCompressionService {
   async compressImage(base64: string, maxWidth: number = 800, quality: number = 0.85): Promise<CompressedImage> {
